@@ -36,7 +36,6 @@ app/                  # Next.js App Router pages
   reserve/page.tsx    # Table reservation form
   contact/page.tsx    # Contact form & info
   order/page.tsx      # Cart & checkout
-  api/                # Backend API routes
   layout.tsx          # Root layout (fonts, theme, globals)
   globals.css         # Warm palette, custom keyframes, utilities
 components/
@@ -47,7 +46,6 @@ components/
   cart-provider.tsx   # React context cart state
 lib/
   data.ts             # Menu items, reviews, images, features
-  db.ts               # Mongoose singleton (optional, for future backend)
   utils.ts            # cn() helper
 public/               # Static assets
 ```
@@ -80,21 +78,6 @@ public/               # Static assets
    ```
 
    Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-### Optional: Database Setup
-
-If you want to add backend features later (user accounts, reservations storage, etc.):
-
-```bash
-# 1. Copy the example env file
-cp .env.example .env
-
-# 2. Add your MongoDB connection string
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/essen
-JWT_SECRET=your-super-secret-key
-
-# 3. The app works fine without a database for the frontend-only experience
-```
 
 ### Available Scripts
 

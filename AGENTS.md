@@ -12,8 +12,7 @@
 - This is a single Next.js 16 App Router app, not a monorepo.
 - Route entrypoint: `app/page.tsx` renders the landing page.
 - Root layout: `app/layout.tsx` wires fonts, metadata, global CSS, and `components/theme-provider.tsx`.
-- API routes live under `app/api/...` and use Next.js Route Handlers (`route.ts`).
-- Backend logic lives in `services/`, `models/`, and `lib/` (currently minimal / placeholder).
+- All pages are static frontend components. There are no API routes or backend.
 
 ## Styling And UI
 - Tailwind CSS v4 is configured through `app/globals.css` and `@tailwindcss/postcss`; there is no `tailwind.config.*`.
@@ -32,13 +31,10 @@
 
 ## Tech Stack
 - **Frontend:** Next.js 16 App Router, React 19, Tailwind CSS v4, shadcn/ui
-- **Backend:** Next.js API Routes, Mongoose (MongoDB) — optional, site runs fine without it
 - **Package Manager:** Bun
 
 ## Important Notes
-- Environment variables are defined in `.env.example`. Never commit real secrets.
-- `lib/db.ts` uses a singleton Mongoose connection pattern for Next.js. It gracefully skips connection if `MONGODB_URI` is not set.
-- The site is a static frontend by default. MongoDB is only needed if you add dynamic backend features later.
+- The site is a pure static frontend. There is no database, no API routes, and no backend.
 - `lib/data.ts` contains all restaurant data: menu items, reviews, features, and verified Unsplash image URLs.
 - Images are loaded from `images.unsplash.com` with `unoptimized: true` in `next.config.ts`.
 - Cart state is managed via React Context in `components/cart-provider.tsx` (client-side only, no persistence).
@@ -50,6 +46,4 @@
 
 ## Agent Rules
 - Do not install new dependencies unless necessary; prefer built-ins or existing stack.
-- Keep API routes thin; business logic lives in `services/`.
-- Always preserve `.env.example` when adding new env vars.
 - Run `bun run build` before committing to ensure it compiles.
