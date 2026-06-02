@@ -2,8 +2,6 @@
 
 A modern, animated restaurant website built with **Next.js 16**, **React 19**, **Tailwind CSS v4**, and **shadcn/ui**. Designed for a premium steakhouse experience with warm linen/beige tones, McDonald's red accents, and smooth CSS-only animations.
 
-![Essen Hero](public/hero.png)
-
 ## Features
 
 - **7 Pages**: Home, Menu, About, Reviews, Reservations, Contact, Order
@@ -26,9 +24,6 @@ A modern, animated restaurant website built with **Next.js 16**, **React 19**, *
 | Styling | [Tailwind CSS v4](https://tailwindcss.com) |
 | UI Kit | [shadcn/ui](https://ui.shadcn.com) (base-nova style) |
 | Icons | [@tabler/icons-react](https://tabler-icons.io) |
-| Backend | Next.js API Routes + [Mongoose](https://mongoosejs.com) (MongoDB) |
-| AI | [Anthropic Claude SDK](https://www.anthropic.com) |
-| Job APIs | Adzuna, JSearch (RapidAPI), LinkedIn scraping |
 
 ## Project Structure
 
@@ -52,7 +47,7 @@ components/
   cart-provider.tsx   # React context cart state
 lib/
   data.ts             # Menu items, reviews, images, features
-  db.ts               # Mongoose singleton connection
+  db.ts               # Mongoose singleton (optional, for future backend)
   utils.ts            # cn() helper
 public/               # Static assets
 ```
@@ -62,7 +57,6 @@ public/               # Static assets
 ### Prerequisites
 
 - [Bun](https://bun.sh/docs/installation) (recommended) — or Node.js 20+
-- MongoDB instance (local or Atlas) — *optional for basic frontend usage*
 
 ### Installation
 
@@ -79,32 +73,28 @@ public/               # Static assets
    bun install
    ```
 
-3. **Environment variables**
-
-   Copy the example file and fill in your secrets:
-
-   ```bash
-   cp .env.example .env
-   ```
-
-   Open `.env` and add:
-
-   ```env
-   MONGODB_URI=mongodb+srv://...
-   JWT_SECRET=your-super-secret-key
-   ANTHROPIC_API_KEY=sk-ant-...
-   ADZUNA_APP_ID=...
-   ADZUNA_APP_KEY=...
-   RAPIDAPI_KEY=...
-   ```
-
-4. **Run the dev server**
+3. **Run the dev server**
 
    ```bash
    bun run dev
    ```
 
    Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Optional: Database Setup
+
+If you want to add backend features later (user accounts, reservations storage, etc.):
+
+```bash
+# 1. Copy the example env file
+cp .env.example .env
+
+# 2. Add your MongoDB connection string
+MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/essen
+JWT_SECRET=your-super-secret-key
+
+# 3. The app works fine without a database for the frontend-only experience
+```
 
 ### Available Scripts
 
@@ -143,8 +133,7 @@ This project uses **zero JavaScript animation libraries**. All motion is handled
 
 1. Push to GitHub
 2. Import project in [Vercel](https://vercel.com)
-3. Add environment variables in Project Settings → Environment Variables
-4. Deploy
+3. Deploy (no environment variables required for the frontend)
 
 > **Note:** Ensure `images.unsplash.com` is in your Next.js `remotePatterns` if you switch off `unoptimized` images.
 
