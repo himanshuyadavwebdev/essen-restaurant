@@ -1,4 +1,4 @@
-# AGENTS.md — smart-job-applier
+# AGENTS.md — Essen Restaurant
 
 ## Commands
 - Use Bun as the package manager; the committed lockfile is `bun.lock`.
@@ -13,7 +13,7 @@
 - Route entrypoint: `app/page.tsx` renders the landing page.
 - Root layout: `app/layout.tsx` wires fonts, metadata, global CSS, and `components/theme-provider.tsx`.
 - API routes live under `app/api/...` and use Next.js Route Handlers (`route.ts`).
-- Backend logic is in `services/`, `models/`, and `lib/`.
+- Backend logic lives in `services/`, `models/`, and `lib/` (currently minimal / placeholder).
 
 ## Styling And UI
 - Tailwind CSS v4 is configured through `app/globals.css` and `@tailwindcss/postcss`; there is no `tailwind.config.*`.
@@ -22,6 +22,7 @@
 - Use `@/lib/utils` `cn()` for class merging.
 - Use `@tabler/icons-react` for icons. Do not introduce emoji icons or inline SVGs unless a required brand asset has no Tabler equivalent.
 - Theme switching uses `next-themes` with `class` on `<html>`.
+- Force light theme only: `forcedTheme="light"`, `enableSystem={false}`, `defaultTheme="light"`.
 
 ## Conventions
 - TypeScript is strict and uses `@/*` as an alias to the repository root.
@@ -31,22 +32,21 @@
 
 ## Tech Stack
 - **Frontend:** Next.js 16 App Router, React 19, Tailwind CSS v4, shadcn/ui
-- **Backend:** Next.js API Routes, Mongoose (MongoDB)
-- **AI:** Anthropic Claude (resume classification, ATS scoring, document generation)
-- **Job Sources:** Adzuna API, JSearch API (RapidAPI), LinkedIn public job scraping (cheerio)
+- **Backend:** Next.js API Routes, Mongoose (MongoDB) — optional, site runs fine without it
 - **Package Manager:** Bun
 
 ## Important Notes
 - Environment variables are defined in `.env.example`. Never commit real secrets.
-- `lib/db.ts` uses a singleton Mongoose connection pattern for Next.js.
-- Auth is JWT-based; token stored in `localStorage` and sent via `Authorization: Bearer` header.
-- Resume parsing supports PDF and DOCX via `pdf-parse` and `mammoth`.
-- The old React/Vite/Express code is archived in `.legacy/`.
+- `lib/db.ts` uses a singleton Mongoose connection pattern for Next.js. It gracefully skips connection if `MONGODB_URI` is not set.
+- The site is a static frontend by default. MongoDB is only needed if you add dynamic backend features later.
+- `lib/data.ts` contains all restaurant data: menu items, reviews, features, and verified Unsplash image URLs.
+- Images are loaded from `images.unsplash.com` with `unoptimized: true` in `next.config.ts`.
+- Cart state is managed via React Context in `components/cart-provider.tsx` (client-side only, no persistence).
 
 ## How to Run
 1. `bun install`
-2. Copy `.env.example` to `.env` and fill values (MONGODB_URI, JWT_SECRET, ANTHROPIC_API_KEY).
-3. `bun run dev`
+2. `bun run dev`
+3. Open `http://localhost:3000`
 
 ## Agent Rules
 - Do not install new dependencies unless necessary; prefer built-ins or existing stack.
